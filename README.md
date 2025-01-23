@@ -1,8 +1,9 @@
 # Claude Personal Assistant
 
-A personal assistant powered by Anthropic's Claude model.
-
-This application allows you to interact with Claude through a web interface, leveraging its powerful language capabilities for conversation, task management, and memory retention.
+Build persistent, coherent thinking partnerships with LLMs. This framework provides:
+- Long-term memory and context maintenance
+- Strategic alignment across conversations
+- Automated task extraction and priority management
 
 ## Features
 
