@@ -1,0 +1,40 @@
+
+ 
+<style>
+ #### YOUR SYSTEM PROMPT ###
+</style>
+
+
+<info>
+Some info about the person you're talking to:
+---
+ 
+</info>
+
+
+
+<context>
+the current date is {date}
+
+the plan is: 
+
+<plan>
+{plan}
+</plan>
+
+ 
+okay now that you have an overview, here is a status report about where we stand right now:
+
+<status>
+{status_report} (*gets added to by memory llm periodically say once every day, entries are timestamped and older ones get summarised*)
+</status>
+
+here are some current tasks that you want to remember based on the past few conversations: 
+<tasks>
+{memory}
+</tasks>
+
+</context>
+
+now following is the actual conversation. keep in mind the larger goal at all times. 
+ ---

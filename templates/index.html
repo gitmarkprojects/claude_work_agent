@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Claude Work Agent</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <link
+  rel="icon"
+  type="image/svg+xml"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='450 450 1150 1150' preserveAspectRatio='xMidYMid meet' width='1024' height='1024'%3E%3Cpath transform='translate(0,0)' fill='rgb(248,65,82)' d='M 1017.03 487.228 C 1023.38 486.769 1029.67 486.15 1035.78 488.434 C 1042.49 490.939 1047.97 495.648 1050.94 502.216 A 28.2328 28.2328 0 0 1 1051.16 524.523 C 1047.72 532.623 1041.13 537.734 1033.25 541.119 C 1027.72 542.096 1022.44 542.199 1017.02 540.507 A 27.2442 27.2442 0 0 1 1000.47 526.151 C 997.049 518.963 996.7 510.053 999.747 502.68 C 1003.14 494.478 1009.18 490.54 1017.03 487.228 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 1022.65 503.964 C 1026.4 504.056 1030.6 504.307 1033.33 507.245 C 1034.98 509.031 1035.78 511.401 1035.46 513.817 C 1034.78 518.977 1031.05 521.667 1026.99 524.224 C 1023.14 523.816 1019.86 523.409 1017.27 520.176 C 1015.23 517.64 1014.79 515.197 1015.42 512.065 C 1016.26 507.94 1019.32 505.986 1022.65 503.964 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,65,82)' d='M 1539.63 1009.25 C 1545.42 1008.95 1550.45 1009.41 1555.75 1011.95 C 1562.67 1015.25 1567.66 1021.2 1569.91 1028.51 C 1572.15 1035.75 1571.65 1044.18 1567.86 1050.83 C 1562.99 1059.4 1555.68 1062.48 1546.72 1065.14 C 1541.11 1065.02 1536.26 1064.43 1531.17 1061.89 A 28.4922 28.4922 0 0 1 1516.7 1044.97 A 27.0273 27.0273 0 0 1 1518.96 1023.07 C 1523.63 1015.1 1530.99 1011.47 1539.63 1009.25 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 1541.68 1027.88 C 1544.66 1028.4 1547.48 1029.09 1549.63 1031.35 C 1551.53 1033.34 1552.5 1035.63 1552.21 1038.43 C 1551.75 1042.92 1549.18 1044.72 1545.76 1047.07 C 1542.14 1046.24 1539.12 1045.41 1536.73 1042.27 C 1535.28 1040.35 1534.45 1037.93 1534.97 1035.51 C 1535.79 1031.72 1538.6 1029.74 1541.68 1027.88 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,65,82)' d='M 608.711 1348.16 C 615.317 1347.53 621.733 1348.11 627.93 1350.58 A 32.6588 32.6588 0 0 1 646.158 1368.3 A 32.8458 32.8458 0 0 1 646.411 1393.86 C 641.902 1404.67 633.111 1410.42 622.749 1414.74 C 615.334 1415.39 608.446 1415.04 601.543 1411.97 A 32.9795 32.9795 0 0 1 583.989 1393.37 A 34.1784 34.1784 0 0 1 585.363 1366.17 C 590.313 1356.33 598.557 1351.28 608.711 1348.16 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 609.828 1367.11 C 612.294 1366.84 615.086 1366.59 617.547 1366.92 C 621.325 1367.42 625.018 1370.19 627.138 1373.26 C 629.412 1376.55 630.15 1380.61 629.372 1384.52 C 628.162 1390.6 624.941 1393.61 619.938 1396.89 C 617.735 1397.06 615.497 1397.1 613.298 1396.84 C 609.027 1396.33 604.8 1393.87 602.299 1390.36 A 13.7385 13.7385 0 0 1 600.062 1379.61 C 601.285 1373.58 604.962 1370.43 609.828 1367.11 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,205,162)' d='M 1500.42 1160.94 C 1500.85 1160.94 1501.27 1160.91 1501.7 1160.93 C 1505.04 1161.09 1508.57 1162.06 1510.77 1164.75 C 1513.8 1168.45 1513.92 1173.78 1513.33 1178.31 C 1511.15 1194.94 1500.85 1217.19 1493.98 1232.72 C 1457.75 1314.59 1404.6 1385.13 1332.57 1439 A 545.262 545.262 0 0 1 970.62 1547.74 C 952.183 1546.6 933.743 1543.49 915.463 1540.87 C 913.789 1540.59 912.111 1540.29 910.468 1539.85 C 905.363 1538.51 902.235 1536.3 899.677 1531.63 C 898.195 1528.93 897.429 1525.82 898.665 1522.85 C 900.057 1519.5 904.775 1516.82 908.306 1516.39 C 918.255 1515.19 931.72 1519.02 941.868 1520.21 C 956.956 1521.98 972.351 1523.42 987.539 1523.82 A 528.349 528.349 0 0 0 1203.08 1485.41 A 497.957 497.957 0 0 0 1457.2 1253.64 C 1465.67 1236.98 1473.92 1220.04 1480.36 1202.48 C 1484.37 1191.56 1487.11 1179.86 1491.72 1169.23 C 1493.79 1164.46 1495.6 1162.89 1500.42 1160.94 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,205,162)' d='M 865.976 510.141 C 867.224 510.122 868.757 510.011 870.006 510.243 A 13.1115 13.1115 0 0 1 878.608 516.095 C 880.5 519.024 881.69 524.162 880.556 527.565 C 879.436 530.927 876.818 533.028 873.86 534.746 C 866.84 538.822 857.825 540.706 850.142 543.494 A 551.358 551.358 0 0 0 806.137 561.258 A 544.133 544.133 0 0 0 559.529 792.54 C 546.258 817.193 535.409 844.153 525.918 870.476 C 491.865 964.924 488.222 1076.83 515.389 1173.54 C 524.532 1206.09 537.588 1236.23 551.928 1266.73 C 551.174 1268.75 550.395 1270.77 549.548 1272.75 C 547.666 1277.15 545.995 1278.88 541.556 1280.7 C 538.711 1280.94 534.559 1281.5 531.926 1280.24 C 523.064 1276 502.613 1218.67 498.417 1206.5 C 452.833 1074.27 466.331 923.866 527.227 798.955 C 596.155 657.569 718.799 560.993 865.976 510.141 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,65,82)' d='M 1066.06 703.253 C 1078.92 638.045 1110.32 577.299 1166.86 539.35 C 1227.19 498.859 1292.54 483.559 1364.21 497.898 C 1431.29 511.32 1486.18 552.554 1523.39 608.919 C 1562.45 668.109 1571.68 739.917 1557.25 808.58 C 1543.19 875.455 1500.45 930.985 1443.83 967.9 C 1415.79 986.182 1411.34 985.267 1389.29 1012.94 C 1383.05 1017.71 1377.66 1023.67 1372.16 1029.26 C 1359.62 1039.18 1304.19 1102.8 1294.14 1102.77 C 1292.11 1102.77 1289.68 1101.37 1288.2 1100.02 C 1286.36 1098.34 1284.93 1096.33 1284.48 1093.84 C 1282.77 1084.45 1283.71 1073.71 1283.71 1064.17 A 1688.93 1688.93 0 0 0 1283.32 1008.68 C 1229.35 1004.43 1172.24 975.846 1134.08 937.868 C 1087.55 891.565 1063.49 823.327 1063.02 758.459 C 1062.96 745.904 1063.94 733.251 1064.58 720.709 L 1082.12 720.677 C 1081.37 734.931 1079.9 749.759 1081.17 764.004 C 1082.67 779.193 1083.86 794.473 1086.89 809.449 A 224.888 224.888 0 0 0 1165.59 939.86 C 1194.8 964.026 1232.47 979.91 1269.62 986.794 C 1277.51 988.256 1285.6 988.286 1293.49 989.609 C 1299.64 990.641 1302.14 991.991 1302.71 998.484 C 1304.7 1021 1302.59 1049.38 1302.31 1072.41 C 1315.15 1058.93 1328.83 1046.4 1341.9 1033.18 C 1364.52 1010.29 1398.84 970.024 1426.1 955.545 A 103.372 103.372 0 0 0 1433.93 951.034 C 1488.58 916.966 1525.6 861.329 1539.6 798.881 C 1552.64 740.679 1540.11 671.535 1507.91 621.453 A 237.506 237.506 0 0 0 1358.09 516.975 C 1299.98 504.487 1235.3 517.043 1185.47 549.682 C 1131.2 585.231 1098.25 640.65 1085.42 703.304 L 1066.06 703.253 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 1085.42 703.304 C 1098.25 640.65 1131.2 585.231 1185.47 549.682 C 1235.3 517.043 1299.98 504.487 1358.09 516.975 A 237.506 237.506 0 0 1 1507.91 621.453 C 1540.11 671.535 1552.64 740.679 1539.6 798.881 C 1525.6 861.329 1488.58 916.966 1433.93 951.034 A 103.372 103.372 0 0 1 1426.1 955.545 C 1427.48 947.435 1432.89 938.638 1435.41 930.587 C 1454.06 871.09 1449.04 811.35 1419.8 755.99 C 1394.92 708.888 1349.64 674.747 1299.25 659.273 C 1223.28 635.943 1166.05 654.979 1099.53 690.422 C 1096.56 694.825 1094.95 699.497 1093.11 704.434 L 1085.42 703.304 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(1,43,93)' d='M 1066.06 703.253 L 1085.42 703.304 L 1093.11 704.434 C 1092.25 709.597 1091.21 714.776 1090.89 720.005 L 1082.12 720.677 L 1064.58 720.709 C 1063.94 733.251 1062.96 745.904 1063.02 758.459 C 964.118 739.09 859.991 753.944 775.553 810.635 A 333.751 333.751 0 0 0 631.844 1025.33 C 619.187 1090.18 629.452 1163.73 650.846 1225.82 C 654.832 1237.39 668.778 1262.68 669.422 1272.81 C 692.739 1301.94 717.035 1312.92 746.914 1331.52 A 437.983 437.983 0 0 1 747.588 1347.91 C 756.974 1346.16 765.939 1346.57 774.158 1351.98 C 779.435 1355.46 783.69 1360.9 784.896 1367.17 C 787.835 1382.46 786.084 1400.49 786.032 1416.03 C 785.907 1453.47 784.902 1490.85 785.135 1528.3 C 803.075 1518.99 818.498 1500.34 833.443 1486.74 L 929.916 1398.64 C 939.378 1390.16 951.452 1376.32 963.013 1371.06 C 972.84 1366.58 997.326 1368.99 1009.06 1368.98 C 1047.02 1368.95 1086.55 1371.1 1124.27 1366.83 C 1185.68 1359.88 1249.93 1329.3 1293.58 1285.61 C 1332.34 1246.82 1362.47 1193.6 1369.47 1138.8 C 1374.06 1102.89 1372.14 1065.43 1372.16 1029.26 C 1377.66 1023.67 1383.05 1017.71 1389.29 1012.94 C 1386.64 1035.41 1388.47 1058.13 1388.8 1080.7 C 1389.13 1102.64 1389.01 1125.05 1385.7 1146.79 C 1376.9 1204.56 1345.57 1255.84 1305.29 1297.03 C 1259.3 1344.07 1192.8 1376.09 1127.42 1383.37 C 1106.92 1385.65 1086.17 1385.13 1065.57 1385.18 L 972.878 1385.45 C 951.226 1399.22 928.891 1423.08 909.945 1440.6 C 885.364 1463.33 860.166 1485.38 835.509 1508.02 C 822.73 1519.76 809.42 1534.69 794.735 1543.92 C 788.64 1547.75 781.939 1549.5 774.764 1549.81 A 43.7848 43.7848 0 0 1 742.494 1538.03 C 736.537 1532.45 732.338 1525.38 730.808 1517.32 C 727.621 1500.55 729.886 1478.74 729.904 1461.41 A 9627.62 9627.62 0 0 0 729.695 1342.12 A 270.005 270.005 0 0 1 673.059 1302.2 C 618.224 1250.97 581.251 1175.25 579.02 1099.86 C 578.186 1071.68 578.875 1043.29 578.921 1015.09 C 578.956 993.614 578.006 971.685 579.888 950.298 A 262.74 262.74 0 0 1 652.831 790.782 A 284.458 284.458 0 0 1 832.883 704.658 C 859.793 702.142 887.214 703.121 914.221 703.122 C 964.765 703.126 1015.54 704.302 1066.06 703.253 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 747.588 1347.91 C 756.974 1346.16 765.939 1346.57 774.158 1351.98 C 779.435 1355.46 783.69 1360.9 784.896 1367.17 C 787.835 1382.46 786.084 1400.49 786.032 1416.03 C 785.907 1453.47 784.902 1490.85 785.135 1528.3 C 780.4 1530.87 775.877 1532.8 770.385 1532.72 C 764.191 1532.63 758.451 1530.08 754.387 1525.38 C 751.547 1522.09 749.349 1518.13 748.559 1513.84 C 745.067 1494.88 746.996 1452.35 746.992 1431.11 C 746.986 1404.66 745.158 1373.92 747.588 1347.91 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 669.422 1272.81 C 668.764 1272.17 668.116 1271.51 667.506 1270.82 A 285.854 285.854 0 0 1 596.77 1108.98 C 594.55 1084.47 595.577 1059.51 595.632 1034.92 C 595.692 1007.74 594.706 980.064 596.979 952.954 C 602.612 885.756 637.53 824.404 688.891 781.401 C 728.894 747.908 781.261 726.269 833.225 721.142 C 870.11 717.503 912.75 719.853 950.346 719.779 C 986.84 719.707 1028.56 717.576 1064.58 720.709 C 1063.94 733.251 1062.96 745.904 1063.02 758.459 C 964.118 739.09 859.991 753.944 775.553 810.635 A 333.751 333.751 0 0 0 631.844 1025.33 C 619.187 1090.18 629.452 1163.73 650.846 1225.82 C 654.832 1237.39 668.778 1262.68 669.422 1272.81 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(253,139,112)' d='M 1099.53 690.422 C 1166.05 654.979 1223.28 635.943 1299.25 659.273 C 1349.64 674.747 1394.92 708.888 1419.8 755.99 C 1449.04 811.35 1454.06 871.09 1435.41 930.587 C 1432.89 938.638 1427.48 947.435 1426.1 955.545 C 1398.84 970.024 1364.52 1010.29 1341.9 1033.18 C 1328.83 1046.4 1315.15 1058.93 1302.31 1072.41 C 1302.59 1049.38 1304.7 1021 1302.71 998.484 C 1302.14 991.991 1299.64 990.641 1293.49 989.609 C 1285.6 988.286 1277.51 988.256 1269.62 986.794 C 1232.47 979.91 1194.8 964.026 1165.59 939.86 A 224.888 224.888 0 0 1 1086.89 809.449 C 1083.86 794.473 1082.67 779.193 1081.17 764.004 C 1079.9 749.759 1081.37 734.931 1082.12 720.677 L 1090.89 720.005 C 1091.21 714.776 1092.25 709.597 1093.11 704.434 C 1094.95 699.497 1096.56 694.825 1099.53 690.422 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(248,245,239)' d='M 1090.89 720.005 C 1090.15 727.571 1085.86 759.487 1081.89 763.804 L 1081.17 764.004 C 1079.9 749.759 1081.37 734.931 1082.12 720.677 L 1090.89 720.005 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(84,218,175)' d='M 669.422 1272.81 C 668.778 1262.68 654.832 1237.39 650.846 1225.82 C 629.452 1163.73 619.187 1090.18 631.844 1025.33 A 333.751 333.751 0 0 1 775.553 810.635 C 859.991 753.944 964.118 739.09 1063.02 758.459 C 1063.49 823.327 1087.55 891.565 1134.08 937.868 C 1172.24 975.846 1229.35 1004.43 1283.32 1008.68 A 1688.93 1688.93 0 0 1 1283.71 1064.17 C 1283.71 1073.71 1282.77 1084.45 1284.48 1093.84 C 1284.93 1096.33 1286.36 1098.34 1288.2 1100.02 C 1289.68 1101.37 1292.11 1102.77 1294.14 1102.77 C 1304.19 1102.8 1359.62 1039.18 1372.16 1029.26 C 1372.14 1065.43 1374.06 1102.89 1369.47 1138.8 C 1362.47 1193.6 1332.34 1246.82 1293.58 1285.61 C 1249.93 1329.3 1185.68 1359.88 1124.27 1366.83 C 1086.55 1371.1 1047.02 1368.95 1009.06 1368.98 C 997.326 1368.99 972.84 1366.58 963.013 1371.06 C 951.452 1376.32 939.378 1390.16 929.916 1398.64 L 833.443 1486.74 C 818.498 1500.34 803.075 1518.99 785.135 1528.3 C 784.902 1490.85 785.907 1453.47 786.032 1416.03 C 786.084 1400.49 787.835 1382.46 784.896 1367.17 C 783.69 1360.9 779.435 1355.46 774.158 1351.98 C 765.939 1346.57 756.974 1346.16 747.588 1347.91 A 437.983 437.983 0 0 0 746.914 1331.52 C 717.035 1312.92 692.739 1301.94 669.422 1272.81 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(1,43,93)' d='M 792.137 1025.31 C 799.694 1025.18 807.119 1026.75 813.751 1030.46 A 38.6241 38.6241 0 0 1 832.415 1055.14 A 36.7837 36.7837 0 0 1 827.833 1083.21 C 821.276 1093.7 811.64 1098.45 800.008 1101.14 C 789.84 1101.32 780.973 1100.68 772.293 1094.75 C 763.656 1088.84 758.036 1079.33 756.425 1069.05 C 754.903 1059.33 757.106 1049.12 762.956 1041.17 C 770.173 1031.35 780.499 1027.15 792.137 1025.31 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(1,43,93)' d='M 1104.33 1025.26 C 1113.23 1024.59 1122.5 1027.2 1129.89 1032.15 A 37.8893 37.8893 0 0 1 1146.43 1057.6 A 40.0776 40.0776 0 0 1 1139.22 1087.38 C 1132.46 1096.48 1123.65 1100.04 1112.86 1101.76 C 1102.96 1102.32 1093.52 1101.28 1085.15 1095.43 C 1076.99 1089.72 1071.94 1080.78 1070.35 1071.03 A 40.8423 40.8423 0 0 1 1077.31 1040.73 C 1084.12 1031.33 1093.23 1027.14 1104.33 1025.26 z'/%3E%3Cpath transform='translate(0,0)' fill='rgb(1,43,93)' d='M 947.278 1025.26 C 955.892 1025.17 964.072 1026.79 971.573 1031.19 C 980.097 1036.2 986.514 1044.22 988.961 1053.85 A 38.4691 38.4691 0 0 1 983.93 1083.81 C 977.4 1094.07 967.795 1098.93 956.285 1101.36 C 945.944 1101.64 936.255 1100.46 927.434 1094.55 A 36.2677 36.2677 0 0 1 911.991 1071.26 C 910.011 1061.08 912.602 1050.34 918.561 1041.91 C 925.579 1031.98 935.621 1027.24 947.278 1025.26 z'/%3E%3C/svg%3E"
+  />
+  <style> 
+/* ================= BASE STYLES ================= */
+body,
+html {
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a, #242424);
+  color: #ececf1;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 100%);
+}
+
+/* ================= CHAT CONTAINER ================= */
+#chat-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 20px 0px;
+  flex-grow: 1;
+  align-items: center;
+}
+
+#chat-history {
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #5a5a5a #363636;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+}
+
+#chat-history::-webkit-scrollbar {
+  width: 8px;
+}
+#chat-history::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+#chat-history::-webkit-scrollbar-thumb {
+  background-color: #4a4a4a;
+  border-radius: 4px;
+}
+
+/* ================= MESSAGES ================= */
+.message {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  width: 100%;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-content {
+  border-radius: 12px;
+  padding: 12px 20px;
+  line-height: 1.65;
+  overflow-x: auto;
+  transition: transform 0.2s ease;
+}
+
+.user-message .message-content {
+  background-color: #2e2e2e;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.assistant-message .message-content pre {
+  background-color: #1e1e1e;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 12px 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assistant-message .message-content code {
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 14px;
+  overflow-wrap: break-word;
+  white-space: break-spaces;
+}
+
+/* ================= INPUT SECTION ================= */
+#input-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 15px 0;
+}
+
+#input-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 50px; /* Restored original pill shape */
+  position: relative;
+  background: linear-gradient(145deg, #232323, #1b1b1b);
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,0.3),
+    inset 0 1px 1px rgba(255,255,255,0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+#input-wrapper:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 16px rgba(0,0,0,0.4),
+    inset 0 1px 1px rgba(255,255,255,0.05);
+}
+
+#textarea {
+  width: 85%;
+  padding: 15px 52px 15px 24px;
+  border: none;
+  outline: none;
+  border-radius: 47px; /* Original roundedness */
+  background: #212121;
+  color: #ececf1;
+  font-size: 15.5px;
+  line-height: 1.6;
+  min-height: 44px;
+  font-family: "Inter", sans-serif;
+  resize: none;
+  transition: 
+    background-color 0.3s ease,
+    box-shadow 0.2s ease;
+}
+
+#textarea:focus {
+  background: #262626;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+#send-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 26px;
+  border-radius: 14px;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#send-button:hover {
+  color: #ff6666;
+  background: none;
+  transform: translateY(-50%) scale(1.08);
+}
+
+#input-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px; /* Matched wrapper radius */
+  padding: 1px;
+  background: linear-gradient(
+    145deg, 
+    rgba(255,255,255,0.07), 
+    rgba(255,255,255,0.03)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+/* ================= TOOLBAR SECTION ================= */
+.toolbar-container {
+  display: inline-flex;
+  justify-content: center;
+  background: linear-gradient(145deg, #252525, #1d1d1d);
+  padding: 10px;
+  border-radius: 50px; /* Original pill shape */
+  box-shadow: 
+    0 4px 24px rgba(0,0,0,0.25),
+    inset 0 1px 1px rgba(255,255,255,0.05);
+  margin: 0 0 15px 0;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.toolbar-button {
+  background: linear-gradient(145deg, #303030, #282828);
+  color: #ececf1;
+  border: none;
+  margin: 0 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 50px; /* Original pill buttons */
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.toolbar-button:hover {
+  background: linear-gradient(145deg, #383838, #303030);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+#record-button.recording {
+    color: red;
+    animation: pulse 1s infinite;
+  }
+
+/* Preserved original roundedness while keeping enhancements */
+.toolbar-container::before {
+  border-radius: 50px; /* Matched container radius */
+}
+
+.toolbar-button::after {
+  border-radius: 50px; /* Matched button radius */
+}
+
+/* ================= UTILITIES & ANIMATIONS ================= */
+#typing-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #777;
+  border-radius: 50%;
+  margin: 0 3px;
+  animation: typing 1.5s infinite ease;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+#input-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.03) 0,
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 50%
+  );
+  z-index: -1;
+}
+
+#countdown-timer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  font-family: 'Fira Code', monospace;
+  background: rgba(40, 40, 40, 0.95);
+  padding: 10px 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #f0f0f0;
+  display: none;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: 300;
+}
+
+#countdown-timer.low {
+  color: #ff6961;
+  animation: text-glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes text-glow {
+  from { text-shadow: 0 0 4px rgba(255,105,97,0.3); }
+  to { text-shadow: 0 0 8px rgba(255,105,97,0.5); }
+}
+  </style>
+</head>
+<body>
+  <div id="countdown-timer">05:00</div>
+
+  <div class="app-container">
+    <div id="chat-container">
+      <div id="chat-history"></div>
+      <div id="typing-indicator" style="display: none;">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div id="input-container">
+        <div id="input-wrapper">
+          <textarea id="textarea" placeholder="Type your message..."></textarea>
+          <button id="send-button">o</button>
+        </div>
+      </div>
+      <div id="toolbar">
+        <div class="toolbar-container">
+          <button id="clear-history" class="toolbar-button">
+              <i class="fas fa-plus"></i>
+          </button>
+          <button id="save-chat" class="toolbar-button">
+              <i class="fas fa-save"></i>
+          </button>
+          <button id="load-chat" class="toolbar-button">
+              <i class="fas fa-folder-open"></i>
+          </button>
+          <button id="record-button" class="toolbar-button">
+            <i class="fas fa-microphone"></i>
+        </button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+  <script>
+    const chatHistory = document.getElementById("chat-history");
+    const userInput = document.getElementById("textarea");
+    const sendButton = document.getElementById("send-button");
+    const clearHistoryButton = document.getElementById("clear-history");
+    const saveChatButton = document.getElementById("save-chat");
+    const recordButton = document.getElementById('record-button');
+    let timerInterval;
+    let timeLeft = 300; // 5 minutes in seconds
+    let mediaRecorder;
+    let audioChunks = [];
+    const API_KEY = ''; 
+    const RECORD_TOGGLE_KEY = 'r';
+
+
+document.getElementById('record-button').addEventListener('click', toggleRecording);
+function handleKeyPress(event) {
+  // Check if the pressed key matches our toggle key and the active element is not the textarea
+  if (event.key.toLowerCase() === RECORD_TOGGLE_KEY && document.activeElement !== userInput) {
+    event.preventDefault(); // Prevent the key from being typed if it's a letter
+    toggleRecording();
+  }
+}
+
+document.addEventListener('keydown', handleKeyPress);
+
+async function toggleRecording() {
+    if (mediaRecorder?.state === 'recording') {
+      stopRecording();
+      recordButton.classList.remove('recording');
+    } else {
+      startRecording();
+      recordButton.classList.add('recording');
+    }
+  }
+
+async function startRecording() {
+    try {
+        document.getElementById('record-button').classList.add('recording');
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = processAudio;
+        
+        mediaRecorder.start();
+    } catch (err) {
+        alert('Microphone access required for recording');
+    }
+}
+
+function stopRecording() {
+    if (mediaRecorder?.state === 'recording') {
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        document.getElementById('record-button').classList.remove('recording');
+    }
+}
+
+
+async function processAudio() {
+  const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+  const formData = new FormData();
+  formData.append('file', audioBlob, 'recording.wav');
+  formData.append('model', 'whisper-large-v3');
+
+  try {
+    const response = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${API_KEY}` },
+      body: formData
+    });
+    const { text } = await response.json();
+
+    // Use the same reference as in the rest of the code
+    userInput.value += (userInput.value.length ? '\n' : '') + text;
+
+    // Trigger UI updates
+    userInput.dispatchEvent(new Event('input', { bubbles: true }));
+    userInput.scrollTop = userInput.scrollHeight;
+    userInput.focus();
+    autoResize(userInput);
+  } catch (err) {
+    alert('Transcription failed: ' + err.message);
+  } finally {
+    audioChunks = [];
+  }
+}
+
+function startTimer() {
+    // Reset and show timer
+    timeLeft = 300;
+    const timerElement = document.getElementById('countdown-timer');
+    timerElement.style.display = 'block';
+    timerElement.classList.remove('pulse');
+    
+    // Clear existing interval
+    if (timerInterval) clearInterval(timerInterval);
+    
+    // Update timer every second
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        timerElement.textContent = `${minutes}:${seconds}`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerElement.style.display = 'none';
+        }
+        else if (timeLeft <= 10) {
+            timerElement.classList.add('low');
+        } else {
+            timerElement.classList.remove('low');
+        }
+    }, 1000);
+}
+
+
+    function formatMessage(content, isAssistant) {
+      if (isAssistant) {
+        let formattedContent = marked.parse(content);
+        formattedContent = formattedContent.replace(
+          /<pre><code class="language-(\w+)">/g,
+          '<pre><code class="language-$1">'
+        );
+        return formattedContent;
+      } else {
+        return content;
+      }
+    }
+
+    function loadHistory() {
+      fetch("/api/history")
+        .then((response) => response.json())
+        .then((history) => {
+          chatHistory.innerHTML = "";
+          history.forEach((turn) => {
+            const content = turn.content[0].text;
+            const isAssistant = turn.role === "assistant";
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${turn.role}-message`;
+            messageDiv.innerHTML = `<div class="message-content">${formatMessage(
+              content,
+              isAssistant
+            )}</div>`;
+            chatHistory.appendChild(messageDiv);
+          });
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+          Prism.highlightAll();
+        });
+    }
+
+ 
+
+
+
+
+    function sendMessage() {
+  const message = userInput.value.trim();
+  if (!message) return;
+
+  startTimer();
+
+  // Show typing indicator
+  document.getElementById("typing-indicator").style.display = "flex";
+
+  fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  })
+    .then((response) => response.json())
+    .then(() => {
+      userInput.value = "";
+      autoResize(userInput);
+      loadHistory();
+    })
+    .finally(() => {
+      // Hide typing indicator
+      document.getElementById("typing-indicator").style.display = "none";
+    });
+}
+
+
+
+    function clearHistory() {
+      fetch("/api/clear_history", { method: "POST" })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            loadHistory();
+          }
+        });
+    }
+
+    function saveChat() {
+      const chatName = prompt("Enter a name for this chat:");
+      if (chatName) {
+        fetch("/api/save_chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_name: chatName }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              alert("Chat saved successfully!");
+            }
+          });
+      }
+    }
+
+    function loadChat() {
+    const chatName = prompt("Enter the name of the chat to load:");
+    if (chatName) {
+        fetch("/api/load_chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ filename: `chats/${chatName}.json` }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === "success") {
+                loadHistory(); // Reload the chat history
+                alert("Chat loaded successfully!");
+            } else {
+                alert("Failed to load chat. Please check the filename.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred while loading the chat.");
+        });
+    }
+}
+ 
+
+sendButton.addEventListener("click", () => {
+  sendMessage();
+
+});
+
+// Replace existing Enter key handler with:
+userInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+
+  }
+});
+    document.getElementById("load-chat").addEventListener("click", loadChat);
+
+ 
+    // Auto-resize for textarea
+    function autoResize(elem) {
+      elem.style.height = "30px";
+      elem.style.height = elem.scrollHeight + "px";
+    }
+
+ 
+ 
+    userInput.addEventListener("input", () => {
+      autoResize(userInput);
+    });
+
+    clearHistoryButton.addEventListener("click", clearHistory);
+    saveChatButton.addEventListener("click", saveChat);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadHistory();
+    });
+
+
+   
+  </script>
+</body>
+</html>
