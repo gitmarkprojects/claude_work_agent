@@ -1,6 +1,6 @@
 # Claude Personal Assistant
 
-Build persistent, coherent thinking partnerships with LLMs. This framework provides:
+Build persistent, coherent memory system with LLMs. This framework provides:
 - Long-term memory and context maintenance
 - Strategic alignment across conversations
 - Automated task extraction and priority management
